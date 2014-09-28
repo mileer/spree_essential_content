@@ -5,13 +5,13 @@ module SpreeEssentialContent
       class_option :auto_run_migrations, :type => :boolean, :default => false
 
       def add_javascripts
-        append_file 'vendor/assets/javascripts/frontend/all.js', "//= require frontend/spree_essential_content"
-        vendorend_file 'vendor/assets/javascripts/backend/all.js', "//= require backend/spree_essential_content"
+        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require frontend/spree_essential_content"
+        vendorend_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require backend/spree_essential_content"
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/frontend/all.css', " *= require frontend/spree_essential_content", :before => /\*\//, :verbose => true
-        inject_into_file 'vendor/assets/stylesheets/backend/all.css', " *= require backend/spree_essential_content", :before => /\*\//, :verbose => true
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require frontend/spree_essential_content", :before => /\*\//, :verbose => true
+        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require backend/spree_essential_content", :before => /\*\//, :verbose => true
       end
 
       def add_migrations
