@@ -1,14 +1,14 @@
 class Spree::Content < ActiveRecord::Base
 
   attr_accessor :delete_attachment
-  attr_accessible :page_id, :title, :body, :hide_title, :link, :link_text, :context, :attachment, :delete_attachment
+  # attr_accessible :page_id, :title, :body, :hide_title, :link, :link_text, :context, :attachment, :delete_attachment
 
   belongs_to :page
   validates_associated :page
   validates_presence_of :title, :page
 
   has_attached_file :attachment,
-    :styles        => Proc.new{ |clip| clip.instance.attachment_sizes },
+    :styles        => ->(clip) { clip.instance.attachment_sizes },
     :default_style => :preview,
     :url           => "/spree/contents/:id/:style/:basename.:extension",
     :path          => ":rails_root/public/spree/contents/:id/:style/:basename.:extension"
@@ -16,7 +16,7 @@ class Spree::Content < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 10
 
-  scope :for, Proc.new{|context| where(:context => context)}
+  scope :for, ->(context) { where(:context => context)}
 
   before_update :delete_attachment!, :if => :delete_attachment
   before_update :reprocess_images_if_context_changed

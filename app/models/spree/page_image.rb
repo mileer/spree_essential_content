@@ -1,11 +1,11 @@
 class Spree::PageImage < Spree::Asset
 
-  attr_accessible :viewable, :attachment, :alt
+  # attr_accessible :viewable, :attachment, :alt
 
   validates_attachment_presence :attachment
   
   has_attached_file :attachment,
-    :styles => Proc.new{ |clip| clip.instance.attachment_sizes },
+    :styles => ->(clip) { clip.instance.attachment_sizes },
     :default_style => :medium,
     :url => '/spree/pages/:id/:style/:basename.:extension',
     :path => ':rails_root/public/spree/pages/:id/:style/:basename.:extension'

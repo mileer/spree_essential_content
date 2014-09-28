@@ -5,7 +5,7 @@ class Spree::Upload < Spree::Asset
   validate :no_attachment_errors
 
   has_attached_file :attachment,
-    :styles        => Proc.new{ |clip| clip.instance.attachment_sizes },
+    :styles        => ->(clip) { clip.instance.attachment_sizes },
     :default_style => :medium,
     :url           => "/spree/uploads/:id/:style/:basename.:extension",
     :path          => ":rails_root/public/spree/uploads/:id/:style/:basename.:extension"

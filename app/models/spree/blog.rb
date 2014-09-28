@@ -1,6 +1,6 @@
 class Spree::Blog < ActiveRecord::Base
 
-  attr_accessible :name, :permalink
+  # attr_accessible :name, :permalink
 
   RESERVED_PATHS = /(^\/*(admin|account|cart|checkout|content|login|pg|orders|products|s|session|signup|shipments|states|t|tax_categories|user)\/+)/
 

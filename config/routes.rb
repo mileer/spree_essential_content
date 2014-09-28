@@ -1,16 +1,16 @@
-class Spree::PossibleBlog
-  def self.matches?(request)
-    return false if request.path =~ /(^\/+(admin|account|cart|checkout|content|login|logout|pg\/|orders|products|s\/|session|signup|shipments|states|t\/|tax_categories|user|paypal)+)/
-    !Spree::Blog.find_by_permalink(request.path).nil?
-  end
-end
+# class Spree::PossibleBlog
+#   def self.matches?(request)
+#     return false if request.path =~ /(^\/+(admin|account|cart|checkout|content|login|logout|pg\/|orders|products|s\/|session|signup|shipments|states|t\/|tax_categories|user|paypal)+)/
+#     !Spree::Blog.find_by_permalink(request.path).nil?
+#   end
+# end
 
-class Spree::PossiblePage
-  def self.matches?(request)
-    return false if request.path =~ /(^\/+(admin|account|cart|checkout|content|login|logout|pg\/|orders|products|s\/|session|signup|shipments|states|t\/|tax_categories|user|paypal)+)/
-    !Spree::Page.active.find_by_path(request.path).nil?
-  end
-end
+# class Spree::PossiblePage
+#   def self.matches?(request)
+#     return false if request.path =~ /(^\/+(admin|account|cart|checkout|content|login|logout|pg\/|orders|products|s\/|session|signup|shipments|states|t\/|tax_categories|user|paypal)+)/
+#     !Spree::Page.active.find_by_path(request.path).nil?
+#   end
+# end
 
 Spree::Core::Engine.routes.append do
   namespace :admin do
@@ -50,23 +50,23 @@ Spree::Core::Engine.routes.append do
 
   end
 
-  constraints(Spree::PossiblePage) do
-    get '*page_path', :to => 'pages#show', :as => :page
-  end
+  # constraints(Spree::PossiblePage) do
+  #   get '*page_path', :to => 'pages#show', :as => :page
+  # end
 
-  constraints(Spree::PossibleBlog) do
-    constraints(
-      :year  => /\d{4}/,
-      :month => /\d{1,2}/,
-      :day   => /\d{1,2}/
-    ) do
-      get ":blog_id/:year(/:month(/:day))" => "posts#index", :as => :post_date
-      get ":blog_id/:year/:month/:day/:id" => "posts#show",  :as => :full_post
-    end
+  # constraints(Spree::PossibleBlog) do
+  #   constraints(
+  #     :year  => /\d{4}/,
+  #     :month => /\d{1,2}/,
+  #     :day   => /\d{1,2}/
+  #   ) do
+  #     get ":blog_id/:year(/:month(/:day))" => "posts#index", :as => :post_date
+  #     get ":blog_id/:year/:month/:day/:id" => "posts#show",  :as => :full_post
+  #   end
 
-    get ":blog_id/category/:id"   => "post_categories#show", :as => :post_category, :constraints => { :id => /.*/ }
-    get ":blog_id/search/:query"  => "posts#search",         :as => :search_posts, :query => /.*/
-    get ":blog_id/archive"        => "posts#archive",        :as => :archive_posts
-    get ":blog_id"                => "posts#index",          :as => :blog_posts
-  end
+  #   get ":blog_id/category/:id"   => "post_categories#show", :as => :post_category, :constraints => { :id => /.*/ }
+  #   get ":blog_id/search/:query"  => "posts#search",         :as => :search_posts, :query => /.*/
+  #   get ":blog_id/archive"        => "posts#archive",        :as => :archive_posts
+  #   get ":blog_id"                => "posts#index",          :as => :blog_posts
+  # end
 end

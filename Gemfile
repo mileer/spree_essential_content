@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'spree', github: 'spree/spree', branch: '2-0-stable'
+gem 'spree', '2.3.3'
 
 group :development do
   gem 'cucumber-rails', :require => false

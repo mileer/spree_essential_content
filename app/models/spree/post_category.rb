@@ -1,6 +1,6 @@
 class Spree::PostCategory < ActiveRecord::Base
 
-  attr_accessible :name, :permalink
+  # attr_accessible :name, :permalink
 
   validates :name, :presence => true
   validates :permalink,  :presence => true, :uniqueness => true, :if => proc{ |record| !record.name.blank? }
